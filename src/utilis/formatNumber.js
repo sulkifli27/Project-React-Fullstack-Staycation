@@ -1,4 +1,4 @@
-export default (number) => {
+export default function number(number) {
   const formatNumbering = new Intl.NumberFormat("id-ID");
   return formatNumbering.format(number);
-};
+}
