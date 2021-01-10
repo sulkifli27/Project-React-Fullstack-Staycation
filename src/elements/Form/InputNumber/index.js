@@ -2,7 +2,16 @@ import React, { useState } from "react";
 import propTypes from "prop-types";
 import "./index.scss";
 export default function Number(props) {
-  const { value, placeholder, name, min, max, prefix, suffix } = props;
+  const {
+    value,
+    placeholder,
+    name,
+    min,
+    max,
+    prefix,
+    suffix,
+    isSuffixPlural,
+  } = props;
 
   const [InputValue, setInputValue] = useState(`${prefix}${value}${suffix}`);
 
@@ -21,7 +30,9 @@ export default function Number(props) {
           value: +value,
         },
       });
-      setInputValue(`${prefix}${value}${suffix}`);
+      setInputValue(
+        `${prefix}${value}${suffix}${isSuffixPlural && value > 1 ? "s" : ""}`
+      );
     }
   };
   const minus = () => {
@@ -81,6 +92,7 @@ Number.defaultProps = {
 Number.propTypes = {
   value: propTypes.oneOfType([propTypes.string, propTypes.number]),
   onChange: propTypes.func,
+  isSuffixPlural: propTypes.bool,
   placeholder: propTypes.string,
   outerClassName: propTypes.string,
 };
