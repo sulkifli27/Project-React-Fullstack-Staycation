@@ -31,23 +31,23 @@ export default class BookingForm extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.state;
+    // if (prevState.data.date !== data.date) {
+    //   const startDate = new Date(data.date.startDate);
+    //   const endDate = new Date(data.date.endDate);
+    //   const countDuration = new Date(endDate - startDate).getDate();
 
-    if (prevState.data.date !== data.date) {
-      const startDate = new Date(data.date.startDate);
-      const endDate = new Date(data.date.endDate);
-      const countDuration = new Date(endDate - startDate).getDate();
-      this.setState({
-        data: {
-          ...this.state.data,
-          duration: countDuration,
-        },
-      });
-    }
+    //   this.setState({
+    //     data: {
+    //       ...this.state.data,
+    //       duration: countDuration,
+    //     },
+    //   });
+    // }
 
     if (prevState.data.duration !== data.duration) {
-      const starDate = new Date(data.date.startDate);
+      const startDate = new Date(data.date.startDate);
       const endDate = new Date(
-        starDate.setDate(starDate.getDate() + +data.duration - 1)
+        startDate.setDate(startDate.getDate() + +data.duration - 1)
       );
       this.setState({
         ...this.state,
@@ -61,6 +61,7 @@ export default class BookingForm extends Component {
       });
     }
   }
+
   render() {
     const { data } = this.state;
     const { itemDetails, startBooking } = this.props;
