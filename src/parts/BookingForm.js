@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import propTypes from "prop-types";
 
 import Button from "elements/Button";
@@ -31,11 +32,11 @@ export default class BookingForm extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.state;
+
     // if (prevState.data.date !== data.date) {
     //   const startDate = new Date(data.date.startDate);
     //   const endDate = new Date(data.date.endDate);
     //   const countDuration = new Date(endDate - startDate).getDate();
-
     //   this.setState({
     //     data: {
     //       ...this.state.data,
@@ -61,10 +62,23 @@ export default class BookingForm extends Component {
       });
     }
   }
+  startBooking = () => {
+    const { data } = this.state;
+    this.props.startBooking({
+      _id: this.props.itemDetails._id,
+      duration: data.duration,
+      date: {
+        startDate: data.date.startDate,
+        endDate: data.date.endDate,
+      },
+    });
+    this.props.history.push("/checkout");
+  };
 
   render() {
     const { data } = this.state;
-    const { itemDetails, startBooking } = this.props;
+    const { itemDetails } = this.props;
+    console.log(this.state);
     return (
       <div className="card bordered" style={{ padding: "60px 80px" }}>
         <h4 className="mb-3">Start Booking</h4>
@@ -84,7 +98,6 @@ export default class BookingForm extends Component {
           name="duration"
           value={data.duration}
         />
-
         <label htmlFor="date">Pick a date</label>
         <InputDate onChange={this.updateData} name="date" value={data.date} />
         <h6
@@ -95,6 +108,7 @@ export default class BookingForm extends Component {
           <span className="text-gray-900">
             ${itemDetails.price * data.duration} USD
           </span>{" "}
+          per{" "}
           <span className="text-gray-900">
             {data.duration} {itemDetails.unit}
           </span>
@@ -105,7 +119,7 @@ export default class BookingForm extends Component {
           hasShadow
           isPrimary
           isBlock
-          onClik={startBooking}
+          onClick={this.startBooking}
         >
           Continue to Book
         </Button>

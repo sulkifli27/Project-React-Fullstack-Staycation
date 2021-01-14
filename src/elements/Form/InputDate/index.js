@@ -8,7 +8,7 @@ import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
 import formatDate from "utils/formatDate";
-import IconCalender from "assets/images/icon/icon-calendar.svg";
+import iconCalendar from "assets/images/icon/icon-calendar.svg";
 
 export default function Date(props) {
   const { value, placeholder, name } = props;
@@ -26,6 +26,7 @@ export default function Date(props) {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -42,8 +43,8 @@ export default function Date(props) {
     focus.indexOf(1) < 0 && setIsShowed(false);
   };
 
-  const displayDate = `${value.startDate ? formatDate(value.startDate) : ""} ${
-    value.endDate ? "- " + formatDate(value.endDate) : ""
+  const displayDate = `${value.startDate ? formatDate(value.startDate) : ""}${
+    value.endDate ? " - " + formatDate(value.endDate) : ""
   }`;
 
   return (
@@ -54,7 +55,7 @@ export default function Date(props) {
       <div className="input-group">
         <div className="input-group-prepend bg-gray-900">
           <span className="input-group-text">
-            <img src={IconCalender} alt="icon calender" />
+            <img src={iconCalendar} alt="icon calendar" />
           </span>
         </div>
         <input
@@ -65,10 +66,11 @@ export default function Date(props) {
           placeholder={placeholder}
           onClick={() => setIsShowed(!isShowed)}
         />
+
         {isShowed && (
           <div className="date-range-wrapper">
             <DateRange
-              edittableDateInputs={true}
+              editableDateInputs={true}
               onChange={datePickerChange}
               moveRangeOnFirstSelection={false}
               onRangeFocusChange={check}
@@ -80,6 +82,7 @@ export default function Date(props) {
     </div>
   );
 }
+
 Date.propTypes = {
   value: propTypes.object,
   onChange: propTypes.func,
