@@ -33,17 +33,17 @@ export default class BookingForm extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.state;
 
-    // if (prevState.data.date !== data.date) {
-    //   const startDate = new Date(data.date.startDate);
-    //   const endDate = new Date(data.date.endDate);
-    //   const countDuration = new Date(endDate - startDate).getDate();
-    //   this.setState({
-    //     data: {
-    //       ...this.state.data,
-    //       duration: countDuration,
-    //     },
-    //   });
-    // }
+    if (prevState.data.date !== data.date) {
+      const startDate = new Date(data.date.startDate);
+      const endDate = new Date(data.date.endDate);
+      const countDuration = new Date(endDate - startDate).getDate();
+      this.setState({
+        data: {
+          ...this.state.data,
+          duration: countDuration,
+        },
+      });
+    }
 
     if (prevState.data.duration !== data.duration) {
       const startDate = new Date(data.date.startDate);
@@ -62,6 +62,7 @@ export default class BookingForm extends Component {
       });
     }
   }
+
   startBooking = () => {
     const { data } = this.state;
     this.props.startBooking({
@@ -78,7 +79,6 @@ export default class BookingForm extends Component {
   render() {
     const { data } = this.state;
     const { itemDetails } = this.props;
-    console.log(this.state);
     return (
       <div className="card bordered" style={{ padding: "60px 80px" }}>
         <h4 className="mb-3">Start Booking</h4>
