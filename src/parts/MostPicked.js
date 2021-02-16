@@ -26,8 +26,12 @@ export default function MostPicked(props) {
                     </div>
                     <figure className="img-wrapper">
                       <img
-                        src={item.imageUrl}
-                        alt={item.name}
+                        src={
+                          item.imageId[0]
+                            ? `${process.env.REACT_APP_HOST}/${item.imageId[0].imageUrl}`
+                            : ""
+                        }
+                        alt={item.title}
                         className="img-cover"
                       />
                     </figure>
@@ -37,7 +41,7 @@ export default function MostPicked(props) {
                         className="stretched-link d-block text-white"
                         href={`/properties/${item._id}`}
                       >
-                        <h5>{item.name}</h5>
+                        <h5>{item.title}</h5>
                       </Button>
                       <span>
                         {item.city}, {item.country}
